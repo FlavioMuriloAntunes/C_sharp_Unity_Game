@@ -2,33 +2,33 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator; // Referência ao Animator
-    float input_X = 0f; // Entrada no eixo X
-    float input_Y = 0f; // Entrada no eixo Y
-    public float speed = 2.5f; // Velocidade de movimento
-    bool isMoving = false; // Estado de movimento
+    public Animator animator; // Referência ao componente Animator
+    private float input_X = 0f; // Entrada do eixo horizontal
+    private float input_Y = 0f; // Entrada do eixo vertical
+    public float speed = 2.5f; // Velocidade de movimento do personagem
+    private bool isMoving = false; // Indica se o personagem está se movendo
 
     void Start()
     {
-        // Verifica se o Animator está atribuído
+        // Verifica se o Animator foi atribuído
         if (animator == null)
         {
-            Debug.LogError("Animator não atribuído no PlayerController.");
+            Debug.LogError("Animator não atribuído no PlayerController. Certifique-se de atribuí-lo no Inspetor.");
         }
     }
 
     void Update()
     {
         // Captura as entradas do teclado
-        input_X = Input.GetAxisRaw("Horizontal");
-        input_Y = Input.GetAxisRaw("Vertical");
+        input_X = Input.GetAxisRaw("Horizontal"); // Eixo horizontal (A/D ou setas esquerda/direita)
+        input_Y = Input.GetAxisRaw("Vertical");   // Eixo vertical (W/S ou setas cima/baixo)
 
-        // Verifica se o personagem está se movendo
+        // Determina se o personagem está se movendo
         isMoving = (input_X != 0 || input_Y != 0);
 
         if (isMoving)
         {
-            // Calcula o vetor de movimento normalizado
+            // Calcula a direção do movimento e normaliza o vetor
             Vector3 move = new Vector3(input_X, input_Y, 0).normalized;
 
             // Atualiza a posição do personagem
